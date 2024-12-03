@@ -1,0 +1,165 @@
+.product-section {
+    display: flex;
+    gap: 20px;
+    background: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  }
+  
+  .product-gallery {
+    flex: 1;
+    text-align: center;
+  }
+  
+  .main-image {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+  }
+  
+  .thumbnail-gallery {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 10px;
+  }
+  
+  .thumbnail {
+    width: 50px;
+    height: 50px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .thumbnail:hover {
+    border-color: #007bff;
+  }
+  
+  .product-details {
+    flex: 2;
+  }
+  
+  .product-title {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 10px;
+  }
+  
+  .product-meta {
+    font-size: 14px;
+    color: #666;
+    margin-bottom: 10px;
+  }
+  
+  .product-rating {
+    margin-bottom: 20px;
+    font-size: 18px;
+  }
+  
+  .product-rating .rating-text {
+    color: #007bff;
+  }
+  
+  .product-specs {
+    list-style: none;
+    padding: 0;
+    margin-bottom: 20px;
+  }
+  
+  .product-specs li {
+    border-bottom: 1px solid #eee;
+    padding: 8px 0;
+  }
+  
+  .specs-link {
+    display: inline-block;
+    margin-top: 10px;
+    color: #007bff;
+    text-decoration: none;
+  }
+  
+  .specs-link:hover {
+    text-decoration: underline;
+  }
+  
+  .product-price {
+    margin-top: 20px;
+  }
+  
+
+  
+  .bonus {
+    font-size: 14px;
+    color: #666;
+  }
+  
+  .add-to-cart {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 10px;
+  }
+  
+  .add-to-cart:hover {
+    background-color: #0056b3;
+  }
+  
+  /* Секция отзывов */
+  .reviews-section {
+    margin-top: 30px;
+    background: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  }
+  
+  .reviews-section h2 {
+    margin-bottom: 20px;
+    font-size: 22px;
+  }
+  
+  .review-summary {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+  
+  .review-rating {
+    font-size: 36px;
+    color: #007bff;
+  }
+  
+  .review-list {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  
+  .review-item {
+    border-bottom: 1px solid #eee;
+    padding-bottom: 15px;
+  }
+  
+  .review-author {
+    font-weight: bold;
+  }
+  
+  .review-text {
+    margin: 10px 0;
+  }
+  
+  .review-date {
+    font-size: 14px;
+    color: #666;
+  }
+  
+  .review-stars {
+    color: #ffc107;
+    font-size: 16px;
+  }
