@@ -1,54 +1,41 @@
-import toCart from './../../img/pictures/toCart.svg'
-import cartIcon from './../../img/icons/cart.png'
-import inCart from './../../img/pictures/inCart.svg'
-import React from "react";
+// Card.js
+import React, { useContext } from "react";
 import { Link } from 'react-router-dom';
+import { CartContext } from '../Context';
+import toCart from './../../img/pictures/toCart.svg';
+import inCart from './../../img/pictures/inCart.svg';
 
-function Card({ imageUrl, category, title, price, onClickAdd }) {
-        
-        const [isAdded, setIsAdded] = React.useState(false);
+function Card({ id, imageUrl, category, title, price }) {
+    const { onAddToCart, isItemInCart } = useContext(CartContext); // Получаем функции из контекста
 
-        const onAdd = () => {
-            onClickAdd({imageUrl, category, title, price});
-            setIsAdded(!isAdded);
-           
-        }
+    const isAdded = isItemInCart(title); // Проверяем, добавлен ли товар в корзину по title
 
-    return(
-        <>
-        
-        
-        <div className="card">
-           
+    const onAdd = () => {
+        onAddToCart({ id, imageUrl, category, title, price }); // Добавляем товар в корзину
+    };
+
+    return (
+        <div className="card" key={id}>
+            <Link to={`/tovar/${encodeURIComponent(title)}`}>
                 <button className="img">
-                    <img src={imageUrl} alt='products' />
+                    <img src={imageUrl} alt="products" />
                 </button>
-                        <p>{category}</p>
-                        <a>{title}</a>
-                        <b>{price} ₽.</b>
-            
-                    <button className='add' >
-                    
-        {!isAdded ? (
-            <>
-             <button className="" onClick={onAdd} >
-             <img className="img2" src={toCart} alt="Add to Cart" />
-                </button>
-               
-                </>
-      ) : (
-        <Link to="/cart" >
-        <img className="img2" src={inCart} alt="In Cart" />
-        </Link>
-      )}
-   
-                        {/* <img className="img2"  src={isAdded ? inCart : toCart} ></img> */}
-                           
+            </Link>
+            <p>{category}</p>
+            <a>{title}</a>
+            <b>{price} ₽.</b>
+            <button className="add">
+                {!isAdded ? (
+                    <button className="" onClick={onAdd}>
+                        <img className="img2" src={toCart} alt="Add to Cart" />
                     </button>
-                
-            </div>
-            
-            </>
+                ) : (
+                    <Link to="/cart">
+                        <img className="img2" src={inCart} alt="In Cart" />
+                    </Link>
+                )}
+            </button>
+        </div>
     );
 }
 

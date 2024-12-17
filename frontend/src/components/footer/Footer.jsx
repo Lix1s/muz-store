@@ -10,7 +10,7 @@ const Footer = () => {
   <div className="container">
     <div className="footer__top">
       <div className="footer__logo">
-        <img src='img/icons/LogoFooter.svg'  alt="Akcord Logo" />
+        <img src='/img/icons/LogoFooter.svg'  alt="Akcord Logo" />
       </div>
       <div className="footer__links">
         <div className="footer__section">
@@ -45,10 +45,10 @@ const Footer = () => {
         <h4>Наши социальные сети</h4>
         <div className="messagers">
         <a href="https://vk.com/lix1s" target='_blank' className="footer__vk">
-          <img src="img/icons/VKicon.svg" alt="VK" />
+          <img src="/img/icons/VKicon.svg" alt="VK" />
         </a>
         <a href="https://t.me/Lix1sBtw" target='_blank' className="footer__vk">
-          <img src="img/icons/TGicon.svg" alt="TG" />
+          <img src="/img/icons/TGicon.svg" alt="TG" />
         </a>
         </div>
         <a href="tel:+79605732352" className="footer__phone">+7 960 517 32 52</a>

@@ -10,13 +10,15 @@ import Footer from './../footer/Footer'
 
  const Cart = () => {
     const data = useContext(CartContext);
+    const cartdata = useContext(CartContext);
+
     console.log('data', data)
+   
     return (
         <>
         <Header />
-        <CartItem items={data.cartItems}/>
-        
-            
+        <CartItem items={data.cartItems} onRemove = {cartdata.onRemoveItem}/>
+   
            
        
         <Footer />

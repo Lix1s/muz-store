@@ -1,56 +1,48 @@
-import React, {useContext} from 'react'
-import Card from '../card/Card'
-import { CartContext } from '../Context'
-import './product.css'
-
-
+import React, { useContext, useState, useEffect } from 'react';
+import Card from '../card/Card';
+import { CartContext } from '../Context';
+import './product.css';
+import axios from 'axios';
 
 const Products = () => {
-    const [items, setitems] = React.useState([]);
-    const { cartItems, onAddToCart } = useContext(CartContext);
-    console.log('cartItems', cartItems);
+    const { items, setitems } = useContext(CartContext);
+    const { cartItems, onAddToCart, setCartItems } = useContext(CartContext);
+    const { activeCategory, setActiveCategory } = useContext(CartContext);
 
-  React.useEffect(() => {
-    fetch ('https://673876654eb22e24fca800c5.mockapi.io/items')
-    .then((res) => {
-      return res.json();
-    })
-    .then((json) => {
-      setitems(json);
-    });
-  }, []);
+    // Загрузка данных
+    useEffect(() => {
+        axios.get('https://673876654eb22e24fca800c5.mockapi.io/items').then((res) => {
+            console.log('Items data:', res.data);
+            setitems(res.data);
+        });
+        axios.get('https://673876654eb22e24fca800c5.mockapi.io/cart').then((res) => {
+            console.log('Cart data:', res.data);
+            setCartItems(res.data);
+        });
+    }, []);
 
+    // Фильтрация карточек по категории
+    const filteredItems = activeCategory
+        ? items.filter((item) => item.category === activeCategory)
+        : items;
 
     return (
-    <section className='Products'>
-       
-        <div className="container">
-            
-        <span>Популярные товары</span>
-
-
-            <div className="tovary">
-            { items.map((item) => ( 
-                <Card 
-                   
-                    title={item.title}
-                    price={item.price}
-                    category={item.category}
-                    imageUrl={item.imageUrl} 
-                    onClickAdd={(obj) => onAddToCart(obj)}
-                />
-            ))}
-  
+        <section className="Products">
+            <div className="container">
+                <span>Популярные товары</span>
+                {/* Карточки товаров */}
+                <div className="tovary">
+                    {filteredItems.map((item) => (
+                        <Card
+                            key={item.id}
+                            onClickAdd={() => onAddToCart(item)}  
+                            {...item}
+                        />
+                    ))}
+                </div>
             </div>
-    
-            </div>
-        
-                
-    </section>);
-        
-}
- 
-
+        </section>
+    );
+};
 
 export default Products;
-

@@ -79,6 +79,21 @@
     
   }
 
+  .form-control-item {
+    border: #F0F0F0 1.5px solid; /* Исходный цвет рамки */
+    border-radius: 4px;
+    padding: 10px;
+    outline: none;
+    transition: border-color 0.3s ease; /* Плавная анимация смены цвета */
+  }
+  
+  .form-control-item:focus {
+    border-color: #0098C8; /* Цвет рамки при фокусе */
+    
+   
+  }
+
+  
   
   .register a {
     text-decoration: none;

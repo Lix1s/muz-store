@@ -30,7 +30,7 @@ function Header() {
         <header className='header'>
             <div className="container2">
                 <div className="header_row">
-                    <div className='header_minirow'>
+                   
                         <div className="header__logo">
                             
                            <img src={newLogoImg} alt="Logo" />
@@ -42,11 +42,11 @@ function Header() {
                         <ul >
                             <li><a href="#!">НОВИНКИ</a></li>
                             <li><Link to="/catalog">КАТАЛОГ</Link></li>
-                            <li><a href="#!">МАГАЗИНЫ</a></li>
+                            <li><Link to='/aboutUs'>МАГАЗИНЫ</Link></li>
                             
                         </ul>
                     </nav>
-                    </div>
+                    
                     <div  className='header_nav_right'>
                  
                         <ul>
@@ -91,9 +91,7 @@ function Header() {
             </div>
         </header>
         </>
-        
-    )
-
+)
 }
 
 export default Header;

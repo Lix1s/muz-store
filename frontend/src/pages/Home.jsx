@@ -7,6 +7,7 @@ import axios from '../axios'
 import React from 'react'
 import Footer from './../components/footer/Footer'
 
+
 export const Home = () => {
   
   // React.useEffect(() => {
@@ -14,6 +15,7 @@ export const Home = () => {
   // }, []);
     return (
       <>
+    
         <Header />
       {/* <ExHeader /> */}
       <Banner />
@@ -24,6 +26,6 @@ export const Home = () => {
     );
   };
 
-export default Home
+export default Home;
 
 

@@ -10,6 +10,9 @@ import Cart from './components/cart/Cart.jsx';
 import Products from './components/Product/Product.jsx'
 import Context from './components/Context';
 import Tovar from './pages/Tovar/Tovar.jsx';
+import AboutUs from './pages/aboutUs/AboutUs.jsx';
+import Admin from './pages/admin/Admin.jsx';
+
 
 function App() {
 
@@ -31,7 +34,9 @@ function App() {
     <Route path='/register' element={<Registration />} />
     <Route path='/catalog' element={<Catalog />} />
     <Route path='/cart' element={<Cart />} />
-    <Route path='/tovar' element={<Tovar />} />
+    <Route path="/tovar/:title" element={<Tovar />} />
+    <Route path='/aboutUs' element={<AboutUs />} />
+    <Route path='/admin' element={<Admin />} />
       </Routes>
       </Context>
       </>

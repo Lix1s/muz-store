@@ -25,6 +25,7 @@ export const Registration = () => {
       email: "",
       password: "",
       confirmPassword: "",
+      changeInput: "",
     },
     mode: "onSubmit", // Ошибки показываются после попытки сабмита
   });
@@ -72,7 +73,7 @@ export const Registration = () => {
                 {showErrors && errors.fullName && <p className="check">{errors.fullName.message}</p>}
               </div>
               <div className="form-group">
-                <input
+                <input 
                   className="form-control-item"
                   type="email"
                   placeholder="Email"
@@ -87,7 +88,7 @@ export const Registration = () => {
                 {showErrors && errors.email && <p className="check">{errors.email.message}</p>}
               </div>
               <div className="form-group">
-                <input
+                <input 
                   className="form-control-item"
                   type="password"
                   placeholder="Пароль"
@@ -103,14 +104,16 @@ export const Registration = () => {
                   className="form-control-item"
                   type="password"
                   placeholder="Повторите пароль"
+                  
                   {...register("confirmPassword", {
+                    
                     required: "Подтвердите пароль",
                     validate: (value) =>
                       value === password || "Пароли не совпадают",
                   })}
                 />
                 {showErrors && errors.confirmPassword && (
-                  <p >{errors.confirmPassword.message}</p>
+                  <p className="check">{errors.confirmPassword.message}</p>
                 )}
               </div>
               <div className="form-group">
