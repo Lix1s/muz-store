@@ -12,7 +12,8 @@ import Context from './components/Context';
 import Tovar from './pages/Tovar/Tovar.jsx';
 import AboutUs from './pages/aboutUs/AboutUs.jsx';
 import Admin from './pages/admin/Admin.jsx';
-
+import ProductList from './components/ProductList/ProductList.jsx';
+import ProductForm from './components/ProductForm/ProductForm.jsx';
 
 function App() {
 
@@ -37,6 +38,8 @@ function App() {
     <Route path="/tovar/:title" element={<Tovar />} />
     <Route path='/aboutUs' element={<AboutUs />} />
     <Route path='/admin' element={<Admin />} />
+    <Route path="/products/new" element={<ProductForm />} />
+    <Route path="/products/:id/edit" element={<ProductForm />} />
       </Routes>
       </Context>
       </>

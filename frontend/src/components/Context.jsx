@@ -3,28 +3,74 @@ import axios from "axios";
 
 export const CartContext = createContext();
 
+const API_URL = "https://673876654eb22e24fca800c5.mockapi.io";
+
 const Context = (props) => {
-  const [items, setitems] = useState([]); // Список всех товаров
-  const [cartItems, setCartItems] = useState([]); // Товары в корзине
+  const [items, setItems] = useState([]); // Товары
+  const [cartItems, setCartItems] = useState([]); // Корзина
+  const [loading, setLoading] = useState(true); // Загрузка данных
+  const [error, setError] = useState(null); // Ошибки
 
-  // Преобразуем price в число для корзины
-  const processedItems = cartItems.map((item) => ({
+  // Преобразование данных корзины
+  const processedItems = cartItems?.map((item) => ({
     ...item,
-    price: Number(item.price), // Убедимся, что price числовой
-  }));
+    price: Number(item.price),
+  })) || [];
 
-  // Загрузка товаров из API (например, для корзины)
-  useEffect(() => {
-    const fetchCartItems = async () => {
-      try {
-        const { data } = await axios.get('https://673876654eb22e24fca800c5.mockapi.io/cart');
-        setCartItems(data); // Загружаем корзину с сервера
-      } catch (error) {
-        console.error("Ошибка при загрузке корзины:", error);
-      }
-    };
-    fetchCartItems();
+  // Загрузка данных из API
+  const fetchData = useCallback(async () => {
+    setLoading(true);
+    setError(null);
+    try {
+      const [itemsResponse, cartResponse] = await Promise.allSettled([
+        axios.get(`${API_URL}/items`),
+        axios.get(`${API_URL}/cart`),
+      ]);
+
+      if (itemsResponse.status === "fulfilled") setItems(itemsResponse.value.data);
+      if (cartResponse.status === "fulfilled") setCartItems(cartResponse.value.data);
+    } catch (err) {
+      setError("Ошибка при загрузке данных!");
+    } finally {
+      setLoading(false);
+    }
   }, []);
+
+  useEffect(() => {
+    fetchData();
+  }, [fetchData]);
+
+  // Добавление товара
+  const addProduct = async (newProduct) => {
+    try {
+      const { data } = await axios.post(`${API_URL}/items`, newProduct);
+      setItems((prev) => [...prev, data]);
+    } catch (error) {
+      setError("Ошибка при добавлении товара.");
+    }
+  };
+
+  // Обновление товара
+  const updateProduct = async (id, updatedData) => {
+    try {
+      const { data } = await axios.put(`${API_URL}/items/${id}`, updatedData);
+      setItems((prev) =>
+        prev.map((item) => (item.id === id ? { ...item, ...data } : item))
+      );
+    } catch (error) {
+      setError("Ошибка при обновлении товара.");
+    }
+  };
+
+  // Удаление товара
+  const deleteProduct = async (id) => {
+    try {
+      await axios.delete(`${API_URL}/items/${id}`);
+      setItems((prev) => prev.filter((item) => item.id !== id));
+    } catch (error) {
+      setError("Ошибка при удалении товара.");
+    }
+  };
 
   const onAddToCart = useCallback(async (item) => {
     try {
@@ -83,23 +129,26 @@ const Context = (props) => {
   // Состояние для активной категории товаров
   const [activeCategory, setActiveCategory] = useState('');
 
-  // Контекст, который предоставляет необходимые данные и функции компонентам
   const value = {
     items,
-    isItemInCart,
-    processedItems,
-    setitems,
     cartItems,
-    activeCategory,
-    setActiveCategory,
-    setCartItems,
+    processedItems,
+    addProduct,
+    updateProduct,
+    deleteProduct,
     onAddToCart,
     onRemoveItem,
+    isItemInCart,
+    activeCategory,
+    setActiveCategory,
+    loading,
+    error,
   };
 
   return (
     <CartContext.Provider value={value}>
-      {props.children}
+      {loading ? <p>Загрузка...</p> : props.children}
+      {error && <p style={{ color: "red" }}>{error}</p>}
     </CartContext.Provider>
   );
 };

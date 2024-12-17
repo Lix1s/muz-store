@@ -9,17 +9,7 @@ const Products = () => {
     const { cartItems, onAddToCart, setCartItems } = useContext(CartContext);
     const { activeCategory, setActiveCategory } = useContext(CartContext);
 
-    // Загрузка данных
-    useEffect(() => {
-        axios.get('https://673876654eb22e24fca800c5.mockapi.io/items').then((res) => {
-            console.log('Items data:', res.data);
-            setitems(res.data);
-        });
-        axios.get('https://673876654eb22e24fca800c5.mockapi.io/cart').then((res) => {
-            console.log('Cart data:', res.data);
-            setCartItems(res.data);
-        });
-    }, []);
+
 
     // Фильтрация карточек по категории
     const filteredItems = activeCategory

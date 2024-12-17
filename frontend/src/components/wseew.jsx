@@ -1,117 +1,191 @@
-<div className="container">
-{/* Основной блок товара */}
-<p className="product-title">{category}</p>
-<h1 className="product-title2">{title}</h1>
-<div className="preinfo">
-    <p className="product-meta">Артикул: 21312132 | Гарантия: 1 год</p>
-    <p className="product-rating">
-        <img src="img/icons/stars.png" alt="stars" />
-        <span className="rating-text">(8 отзывов)</span>
-    </p>
-</div>
-<section className="product-section">
-    <div className="thumbnail-gallery">
-        <img src={imageUrl} alt="Гитара миниатюра 1" className="thumbnail" />
-        <img
-            src="https://www.muztorg.ru/files/dxp/j3t/yfl/88w/80g/gw8/8kk/4ko/s/dxpj3tyfl88w80ggw88kk4kos.jpg"
-            alt="Гитара миниатюра 2"
-            className="thumbnail"
-        />
-    </div>
-    <div className="product-gallery">
-        <div className="img-main">
-            <img
-                src="https://www.muztorg.ru/files/2jp/wx4/khs/2o0/8o4/4wc/ssk/s80/8/2jpwx4khs2o08o44wcssks808.jpg"
-                alt={title}
-                className="main-image"
-            />
-        </div>
-    </div>
+import React, { useState, createContext, useEffect, useCallback } from "react";
+import axios from "axios";
 
-    <div className="product-details">
-        <ul className="product-specs">
-            <h2>
-                <strong>Характеристики:</strong>
-            </h2>
-            <li>Количество струн: 6</li>
-            <li>Конфигурация звукоснимателей: H-S-S</li>
-            <li>Крепление грифа: на болтах</li>
-            <li>Материал грифа: клён</li>
-            <li>Материал корпуса: тополь</li>
-            <li>Материал накладки грифа: сосна</li>
-            <li>Ориентация: правосторонняя</li>
-            <li>Форма корпуса: Superstrat</li>
-            <li>Мензура, дюймы: 25.5</li>
-            <li>Тип бриджа: Tremolo</li>
-            <a href="#" className="specs-link">
-                Все характеристики
-            </a>
-        </ul>
+export const CartContext = createContext();
 
-        <div className="order-block-tovar">
-            <div className="buy-prod">
-                <div className="subtitle2">
-                    <span>{price} ₽.</span>
-                </div>
+const API_URL = "https://673876654eb22e24fca800c5.mockapi.io";
 
-                <button
-                    className="buy"
-                    onClick={handleAddToCart}
-                    disabled={isAdded}
-                >
-                    {isAdded ? 'Добавлено в корзину' : 'В корзину'}
-                </button>
-            </div>
-            <div className="aftertitle">
-                <span>Только самовывоз!</span>
-            </div>
-        </div>
-    </div>
-</section>
+const Context = (props) => {
+  const [items, setItems] = useState([]); // Товары
+  const [cartItems, setCartItems] = useState([]); // Корзина
+  const [loading, setLoading] = useState(true); // Загрузка данных
+  const [error, setError] = useState(null); // Ошибки
 
-{/* Отзывы */}
-<section className="reviews-section">
-    <h2>Отзывы</h2>
-    <div className="review-summary">
-        <div className="review-rating">
-            <span className="review-score">4.7</span>
-            <p>8 отзывов</p>
-        </div>
-        <p className="recommend">100% рекомендуют</p>
-    </div>
-    <div className="review-list">
-        <article className="review-item">
-            <p className="review-author">
-                <strong>Денис Зиновкин</strong>
-            </p>
-            <p className="review-text">
-                Решил подарить своему другу гитару на др. Заказал на этом сайте, гитара
-                пришла настолько быстро, что его др не наступило еще. Так вот, сижу
-                теперь сам играю. Всем советую.
-            </p>
-            <p className="review-date">28 октября 2024</p>
-            <img
-                src="img/icons/stars.png"
-                alt={title}
-                className="main-image"
-            />
-        </article>
-        <article className="review-item">
-            <p className="review-author">
-                <strong>Денис Зиновкин</strong>
-            </p>
-            <p className="review-text">
-                Решил оставить еще один комментарий. В общем, гитару ему не отдал, сам
-                теперь играю, но сайт "Аккорд" всем посоветовал.
-            </p>
-            <p className="review-date">15 ноября 2024</p>
-            <img
-                src="img/icons/stars.png"
-                alt={title}
-                className="main-image"
-            />
-        </article>
-    </div>
-</section>
-</div>
-<Footer />
+  // Преобразование данных корзины
+  const processedItems = cartItems?.map((item) => ({
+    ...item,
+    price: Number(item.price),
+  })) || [];
+
+  // Загрузка данных из API
+  const fetchData = useCallback(async () => {
+    setLoading(true);
+    setError(null);
+    try {
+      const [itemsResponse, cartResponse] = await Promise.allSettled([
+        axios.get(`${API_URL}/items`),
+        axios.get(`${API_URL}/cart`),
+      ]);
+
+      if (itemsResponse.status === "fulfilled") setItems(itemsResponse.value.data);
+      if (cartResponse.status === "fulfilled") setCartItems(cartResponse.value.data);
+    } catch (err) {
+      setError("Ошибка при загрузке данных!");
+    } finally {
+      setLoading(false);
+    }
+  }, []);
+
+  useEffect(() => {
+    fetchData();
+  }, [fetchData]);
+
+  // Добавление товара
+  const addProduct = async (newProduct) => {
+    try {
+      const { data } = await axios.post(`${API_URL}/items`, newProduct);
+      setItems((prev) => [...prev, data]);
+    } catch (error) {
+      setError("Ошибка при добавлении товара.");
+    }
+  };
+
+  // Обновление товара
+  const updateProduct = async (id, updatedData) => {
+    try {
+      const { data } = await axios.put(`${API_URL}/items/${id}`, updatedData);
+      setItems((prev) =>
+        prev.map((item) => (item.id === id ? { ...item, ...data } : item))
+      );
+    } catch (error) {
+      setError("Ошибка при обновлении товара.");
+    }
+  };
+
+  // Удаление товара
+  const deleteProduct = async (id) => {
+    try {
+      await axios.delete(`${API_URL}/items/${id}`);
+      setItems((prev) => prev.filter((item) => item.id !== id));
+    } catch (error) {
+      setError("Ошибка при удалении товара.");
+    }
+  };
+
+  // Добавление в корзину
+  const onAddToCart = useCallback((item) => {
+    setCartItems((prev) => {
+      const existingItem = prev.find((el) => el.title === item.title);
+      if (existingItem) {
+        const updated = { ...existingItem, quantity: existingItem.quantity + 1 };
+        axios.put(`${API_URL}/cart/${existingItem.id}`, updated);
+        return prev.map((el) => (el.id === existingItem.id ? updated : el));
+      } else {
+        const newItem = { ...item, quantity: 1 };
+        axios.post(`${API_URL}/cart`, newItem);
+        return [...prev, newItem];
+      }
+    });
+  }, []);
+
+  // Удаление из корзины
+  const onRemoveItem = useCallback((id) => {
+    setCartItems((prev) => {
+      const existingItem = prev.find((el) => el.id === id);
+      if (existingItem && existingItem.quantity > 1) {
+        const updated = { ...existingItem, quantity: existingItem.quantity - 1 };
+        axios.put(`${API_URL}/cart/${id}`, updated);
+        return prev.map((el) => (el.id === id ? updated : el));
+      } else {
+        axios.delete(`${API_URL}/cart/${id}`);
+        return prev.filter((el) => el.id !== id);
+      }
+    });
+  }, []);
+
+  // Проверка наличия товара в корзине
+  const isItemInCart = (title) => cartItems.some((cartItem) => cartItem.title === title);
+
+  const value = {
+    items,
+    cartItems,
+    processedItems,
+    addProduct,
+    updateProduct,
+    deleteProduct,
+    onAddToCart,
+    onRemoveItem,
+    isItemInCart,
+    loading,
+    error,
+  };
+
+  return (
+    <CartContext.Provider value={value}>
+      {loading ? <p>Загрузка...</p> : props.children}
+      {error && <p style={{ color: "red" }}>{error}</p>}
+    </CartContext.Provider>
+  );
+};
+
+export default Context;
+
+
+
+
+const onAddToCart = useCallback(async (item) => {
+    try {
+      const existingItem = cartItems.find((cartItem) => cartItem.title === item.title);
+  
+      if (existingItem) {
+        // Обновляем количество на сервере
+        const updatedItem = { ...existingItem, quantity: existingItem.quantity + 1 };
+        await axios.put(`https://673876654eb22e24fca800c5.mockapi.io/cart/${existingItem.id}`, updatedItem);
+        setCartItems((prevItems) =>
+          prevItems.map((el) => (el.id === existingItem.id ? updatedItem : el))
+        );
+      } else {
+        // Добавляем новый товар
+        const newItem = { ...item, quantity: 1 };
+        const { data } = await axios.post('https://673876654eb22e24fca800c5.mockapi.io/cart', newItem);
+        setCartItems((prevItems) => [...prevItems, data]);
+      }
+    } catch (error) {
+      console.error("Ошибка при добавлении товара в корзину:", error);
+    }
+  }, [cartItems]);
+
+  // Функция для удаления товара из корзины
+  const onRemoveItem = async (id) => {
+    try {
+      // Находим товар по ID
+      const itemToUpdate = cartItems.find((item) => item.id === id);
+  
+      if (!itemToUpdate) return;
+  
+      if (itemToUpdate.quantity > 1) {
+        // Если количество больше 1, уменьшаем количество
+        const updatedItem = { ...itemToUpdate, quantity: itemToUpdate.quantity - 1 };
+        await axios.put(`https://673876654eb22e24fca800c5.mockapi.io/cart/${id}`, updatedItem);
+  
+        // Обновляем локальное состояние
+        setCartItems((prevItems) =>
+          prevItems.map((item) => (item.id === id ? updatedItem : item))
+        );
+      } else {
+        // Если количество равно 1, удаляем товар полностью
+        await axios.delete(`https://673876654eb22e24fca800c5.mockapi.io/cart/${id}`);
+        setCartItems((prevItems) => prevItems.filter((item) => item.id !== id));
+      }
+    } catch (error) {
+      console.error("Ошибка при обновлении количества товара:", error);
+    }
+  };
+
+  // Функция для проверки, добавлен ли товар в корзину
+  const isItemInCart = (title) => {
+    return cartItems.some((cartItem) => cartItem.title === title);
+  };
+
+  // Состояние для активной категории товаров
+  const [activeCategory, setActiveCategory] = useState('');
