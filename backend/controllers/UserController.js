@@ -2,6 +2,7 @@ import jwt from 'jsonwebtoken';
 import bcrypt from 'bcrypt';
 
 import UserModel from '../models/User.js'
+import Role from '../models/Role.js'
 
 export const register = async (req, res) => {
     try {
@@ -91,6 +92,7 @@ export const getMe =  async (req, res) => {
                 return res.status(404).json({
                     message: 'Пользователь не найден'
                 });
+                
             }
 
     const { passwordHash, ...userData } = user._doc
@@ -101,4 +103,23 @@ export const getMe =  async (req, res) => {
             message: 'Нет доступа',
         });
     }
+
+    
 };
+
+// export const getMe =  async (req, res) => {
+//     try {
+//         const user = await UserModel.findById(req.userId);
+        // const userRole = new Role()
+        // const adminRole = new Role( {value:'admin'})
+        // await userRole.save()     
+        // await adminRole.save()     
+   
+//         res.json('userData')
+//     } catch (err) {
+//         console.log(err)
+//         }
+    
+
+    
+// };

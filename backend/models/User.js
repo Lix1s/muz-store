@@ -17,10 +17,10 @@ const UserSchema = new mongoose.Schema(
       required: true,
     },
     avatarUrl: String,
-    role: {
-      type: String,
-      default: 'user', // 'user' или 'admin'
-    },
+    roles: [{
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Role'
+    }],
   },
   {
     timestamps: true,

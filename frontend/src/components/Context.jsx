@@ -46,9 +46,11 @@ const Context = (props) => {
       const { data } = await axios.post(`${API_URL}/items`, newProduct);
       setItems((prev) => [...prev, data]);
     } catch (error) {
-      setError("Ошибка при добавлении товара.");
+      console.error("Ошибка при добавлении товара:", error); // Логируем подробности ошибки
+      // setError("Ошибка при добавлении товара.");
     }
   };
+  
 
   // Обновление товара
   const updateProduct = async (id, updatedData) => {
@@ -147,7 +149,7 @@ const Context = (props) => {
 
   return (
     <CartContext.Provider value={value}>
-      {loading ? <p>Загрузка...</p> : props.children}
+      {loading ? <span class="loader"></span> : props.children}
       {error && <p style={{ color: "red" }}>{error}</p>}
     </CartContext.Provider>
   );

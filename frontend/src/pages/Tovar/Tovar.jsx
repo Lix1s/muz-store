@@ -76,14 +76,14 @@ const Tovar = () => {
 
                 <button className="buy">
                      {!isAdded ? (
-                                              <button onClick={() => onAddToCart(item)}>
-                                                  <img className="img2" src={toCart} alt="Add to Cart" />
-                                              </button>
-                                          ) : (
-                                              <Link to="/cart">
-                                                  <img className="img2" src={inCart} alt="In Cart" />
-                                              </Link>
-                                          )}
+                        <button onClick={() => onAddToCart(item)}>
+                            <img className="img2" src={toCart} alt="Add to Cart" />
+                        </button>
+                     ) : (
+                        <Link to="/cart">
+                            <img className="img2" src={inCart} alt="In Cart" />
+                        </Link>
+                    )}
                 </button>
               </div>
               <div className="aftertitle">

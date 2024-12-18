@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const instance = axios.create({
-  baseURL: 'https://673876654eb22e24fca800c5.mockapi.io', // Ваш URL MockAPI
+  baseURL: 'http://localhost:4444', // Новый URL для MongoDB
 });
 
 instance.interceptors.request.use((config) => {

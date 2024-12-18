@@ -52,6 +52,12 @@
     align-items: center;
 
     }
+    .header_nav {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    }
     
     .header_nav a {
     color: black;

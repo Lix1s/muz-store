@@ -17,14 +17,15 @@ const CartItem = ({ onRemove }) => {
             <div className="items">
               {processedItems.map((obj) => (
                 <div className="cartItem" key={obj.id}>
-                  <div className="cartItemImg">
-                    <img
+                  <Link to={`/tovar/${encodeURIComponent(obj.title)}`}>
+                  <div className="cartItemImg"> 
+                    <img 
                       src={obj.imageUrl}
                       alt={obj.title}
                       width={50}
                       height={50}
                     />
-                  </div>
+                  </div></Link>
                   <div className="main">
                     <div className="descrip">
                       <div className="category">{obj.category}</div>
