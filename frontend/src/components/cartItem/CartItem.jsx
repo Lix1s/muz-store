@@ -4,6 +4,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { selectIsAuth } from '../../redux/slices/auth';
 import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
+import axios from 'axios';
+
 const CartItem = ({ onRemove }) => {
   const { processedItems, onAddToCart, onRemoveItem } = useContext(CartContext);
   const isAuth = useSelector(selectIsAuth); // Проверяем авторизацию через redux

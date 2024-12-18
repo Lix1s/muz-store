@@ -66,7 +66,8 @@ function Header() {
                                 </button>
                                 </Link>
                             </button>
-                            <img src={userprofile} alt='can'/>
+                            <Link to='/profile'>
+                            <img src={userprofile} alt='can'/></Link>
                         </div>
                         </>
                         ) : (
