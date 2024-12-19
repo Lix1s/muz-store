@@ -8,11 +8,11 @@ import { useForm } from 'react-hook-form';
 const Admin = () => {
   const { items, addProduct, updateProduct, deleteProduct } = useContext(CartContext);
 
-  // Состояния для изображений: одно для добавления, другое для обновления
+  // Состояния для изображений
   const [imageUrl, setImageUrl] = useState('');
   const [updateImageUrl, setUpdateImageUrl] = useState('');
 
-  // Добавление продукта
+  // Форма для добавления товара
   const {
     register: addRegister,
     handleSubmit: handleAddSubmit,
@@ -23,7 +23,7 @@ const Admin = () => {
     mode: 'onChange',
   });
 
-  // Обновление продукта
+  // Форма для обновления товара
   const {
     register: updateRegister,
     handleSubmit: handleUpdateSubmit,
@@ -34,11 +34,11 @@ const Admin = () => {
     mode: 'onChange',
   });
 
-  // Удаление продукта
+  // Состояния для удаления товара
   const [deleteId, setDeleteId] = useState('');
   const [deleteError, setDeleteError] = useState('');
 
-  // Функция для загрузки изображения при добавлении
+  // Функция загрузки изображения при добавлении
   const handleImageUpload = (e) => {
     const file = e.target.files[0];
     if (file) {
@@ -46,24 +46,24 @@ const Admin = () => {
         alert('Изображение слишком большое, выберите файл меньше 5 МБ');
         return;
       }
-      
+
       const reader = new FileReader();
       reader.onloadend = () => {
         setImageUrl(reader.result); // Сохраняем URL изображения
       };
-      reader.readAsDataURL(file); // Чтение файла как URL
+      reader.readAsDataURL(file);
     }
   };
 
-  // Функция для загрузки изображения при обновлении
+  // Функция загрузки изображения при обновлении
   const handleUpdateImageUpload = (e) => {
     const file = e.target.files[0];
     if (file) {
       const reader = new FileReader();
       reader.onloadend = () => {
-        setUpdateImageUrl(reader.result); // Сохраняем URL изображения в состоянии для обновления
+        setUpdateImageUrl(reader.result); // Сохраняем URL изображения
       };
-      reader.readAsDataURL(file); // Чтение файла как URL
+      reader.readAsDataURL(file);
     }
   };
 
@@ -72,8 +72,8 @@ const Admin = () => {
     try {
       const productWithId = { ...data, id: Date.now(), imageUrl };
       await addProduct(productWithId);
-      resetAddForm(); // Сброс формы после добавления
-      setImageUrl(''); // Сброс URL изображения
+      resetAddForm();
+      setImageUrl('');
     } catch (e) {
       console.error(e);
     }
@@ -95,8 +95,8 @@ const Admin = () => {
       };
 
       await updateProduct(data.id, updatedProduct);
-      resetUpdateForm(); // Сброс формы после обновления
-      setUpdateImageUrl(''); // Сброс URL изображения для обновления
+      resetUpdateForm();
+      setUpdateImageUrl('');
     } catch (e) {
       console.error(e);
     }
@@ -111,7 +111,7 @@ const Admin = () => {
 
     try {
       await deleteProduct(deleteId);
-      setDeleteError(''); // Сброс ошибок после успешного удаления
+      setDeleteError('');
     } catch (e) {
       setDeleteError('Ошибка при удалении продукта. Проверьте ID.');
     }
@@ -169,7 +169,7 @@ const Admin = () => {
                 Добавить продукт
               </button>
 
-              {/* Показываем ошибки, если они есть */}
+              {/* Ошибки формы */}
               {addErrors && Object.keys(addErrors).length > 0 && (
                 <p className="check">Пожалуйста, исправьте ошибки в форме.</p>
               )}

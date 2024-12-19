@@ -14,7 +14,7 @@ const Tovar = () => {
     const item = items.find(
         (item) => item.title.toLowerCase() === decodeURIComponent(title).toLowerCase()
     );
-
+    const formattedPrice1 = item.price.toLocaleString('ru-RU');
     const isAdded = item && isItemInCart(item.title); // Проверка, добавлен ли товар в корзину по title
 
     if (!item) return <p>Товар не найден</p>;
@@ -71,7 +71,7 @@ const Tovar = () => {
             <div className="order-block-tovar">
               <div className="buy-prod">
                 <div className="subtitle2">
-                  <span>{item.price} ₽.</span>
+                  <span>{formattedPrice1} ₽.</span>
                 </div>
 
                 <button className="buy">

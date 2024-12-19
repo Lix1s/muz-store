@@ -40,7 +40,7 @@ function Header() {
                         
                     <nav className="header_nav">
                         <ul >
-                            <li><a href="#!">НОВИНКИ</a></li>
+                            <li><Link to="/new">НОВИНКИ</Link></li>
                             <li><Link to="/catalog">КАТАЛОГ</Link></li>
                             <li><Link to='/aboutUs'>МАГАЗИНЫ</Link></li>
                             

@@ -16,6 +16,7 @@ import ProductList from './components/ProductList/ProductList.jsx';
 import ProductForm from './components/ProductForm/ProductForm.jsx';
 import CheckOut from './pages/CheckOut/CheckOut.jsx';
 import Profile from './pages/profile/Profile.jsx';
+import New from './pages/new/New.jsx';
 
 function App() {
 
@@ -45,6 +46,7 @@ function App() {
     <Route path="/products/:id/edit" element={<ProductForm />} />
     <Route path="/checkout" element={<CheckOut />} />
     <Route path="/profile" element={<Profile />} />
+    <Route path="/new" element={<New />} />
       </Routes>
       </Context>
       </>

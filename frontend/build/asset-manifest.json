@@ -1,0 +1,19 @@
+{
+  "files": {
+    "main.css": "/static/css/main.33359b74.css",
+    "main.js": "/static/js/main.ad2ec4df.js",
+    "static/media/BGImage.png": "/static/media/BGImage.919ef8798050411b7b37.png",
+    "static/media/SeasonNews.svg": "/static/media/SeasonNews.603b48b08888924e658f72b75474d8dc.svg",
+    "static/media/ForTeachers2.svg": "/static/media/ForTeachers2.965a677fb66f19e3ed7483224059401b.svg",
+    "static/media/PresentHelp.svg": "/static/media/PresentHelp.75763ec3a73a3c863ece3dc25f5d009e.svg",
+    "static/media/toCart.svg": "/static/media/toCart.769a98bc17d2ff41227a3dea4bd054b7.svg",
+    "static/media/inCart.svg": "/static/media/inCart.ea7ed8010ecd89fdfc785470e843000b.svg",
+    "index.html": "/index.html",
+    "main.33359b74.css.map": "/static/css/main.33359b74.css.map",
+    "main.ad2ec4df.js.map": "/static/js/main.ad2ec4df.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.33359b74.css",
+    "static/js/main.ad2ec4df.js"
+  ]
+}

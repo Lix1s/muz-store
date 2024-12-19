@@ -1,75 +1,177 @@
-/* profile.css */
+/* Общие стили */
+.profile {
+  background-color: #f4f7f6;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 50px 15px; /* Добавлено отступы для мобильных */
+  width: 100%;
+  height: 75vh;
+}
 
-  
-  .profile {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 80vh;
-    background-color: #f9f9f9;
-  }
-  
+.container {
+  width: 100%;
+  max-width: 1200px;
+  padding: 0 15px;
+}
 
-  
-  .profile-card {
-    text-align: center;
-  }
-  
-  .profile-header {
-    margin-bottom: 20px;
-  }
-  
-  .profile-avatar {
-    width: 120px;
-    height: 120px;
-    border-radius: 50%;
-    margin-bottom: 15px;
-    border: 3px solid #0098c8;
-  }
-  
-  .profile-name {
-    font-size: 24px;
-    font-weight: bold;
-    color: #333;
-    margin-bottom: 5px;
-  }
-  
-  .profile-email {
-    font-size: 16px;
-    color: #555;
-    margin-bottom: 20px;
-  }
-  
-  .profile-actions {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-  }
-  
-    .btn {
-        padding: 10px 15px;
-        font-size: 16px;
-        border-radius: 5px;
-        border: none;
-        cursor: pointer;
-        transition: background-color 0.3s;
-    }
-  
-  .edit-btn {
-    background-color: #0098c8;
-    color: white;
-  }
-  
-  .edit-btn:hover {
-    background-color: #007ea6;
-  }
-  
-  .logout-btn {
-    background-color: #e63946;
-    color: white;
-  }
-  
-  .logout-btn:hover {
-    background-color: #d62828;
-  }
-  
+.profile-card {
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  padding: 30px;
+  width: 100%; /* Растягиваем на всю ширину контейнера */
+  box-sizing: border-box;
+}
+
+/* Стили для блока с изображением и действиями пользователя */
+.profile-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 30px;
+  border-bottom: 2px solid #f0f0f0;
+  padding-bottom: 20px;
+  justify-content: space-between;
+  flex-wrap: wrap; /* Для мобильных устройств элементы будут переноситься */
+}
+
+.profile-avatar-container {
+  margin-right: 20px;
+  max-width: 120px;
+}
+
+.profile-avatar {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  border: 3px solid #0098c8;
+  object-fit: cover;
+}
+
+.profile-details {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1; /* Чтобы детали занимали оставшееся пространство */
+}
+
+.profile-item {
+  margin-bottom: 15px;
+}
+
+.profile-label {
+  font-size: 16px;
+  color: #777;
+  font-weight: 500;
+  margin-bottom: 5px;
+  display: block;
+}
+
+.profile-name {
+  font-size: 28px;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 10px;
+}
+
+.profile-email {
+  font-size: 18px;
+  color: #777;
+}
+
+.profile-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  margin-top: 10px;
+}
+
+.btn {
+  padding: 12px 25px; /* Установим одинаковый padding для всех кнопок */
+  font-size: 16px;
+  border-radius: 5px;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  width: 100%; /* Растягиваем кнопки на всю ширину родительского контейнера */
+}
+
+.edit-btn {
+  background-color: #0098c8;
+  color: white;
+}
+
+.edit-btn:hover {
+  background-color: #007ea6;
+}
+
+.logout-btn {
+  background-color: #e63946;
+  color: white;
+}
+
+.logout-btn:hover {
+  background-color: #d62828;
+}
+
+/* Стили для блока с заказами */
+.profile-orders {
+  margin-top: 40px;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.orders-title {
+  font-size: 22px;
+  font-weight: bold;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.orders-list {
+  margin-bottom: 20px;
+}
+
+.order-item {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 15px;
+  padding: 15px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.order-details {
+  display: flex;
+  justify-content: space-between;
+  font-size: 16px;
+  color: #555;
+}
+
+.order-status {
+  color: #0098c8;
+  font-weight: bold;
+}
+
+.order-total {
+  font-weight: bold;
+  color: #e63946;
+}
+
+.no-orders {
+  font-size: 18px;
+  color: #777;
+  text-align: center;
+  font-style: italic;
+}
+
+.loading {
+  text-align: center;
+  font-size: 24px;
+  font-weight: bold;
+  color: #0098c8;
+  margin-top: 50px;
+}
+

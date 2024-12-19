@@ -1,4 +1,3 @@
-// Card.js
 import React, { useContext } from "react";
 import { Link } from 'react-router-dom';
 import { CartContext } from '../Context';
@@ -14,6 +13,9 @@ function Card({ id, imageUrl, category, title, price }) {
         onAddToCart({ id, imageUrl, category, title, price }); // Добавляем товар в корзину
     };
 
+    // Форматируем цену с разделением тысяч
+    const formattedPrice = price.toLocaleString('ru-RU');
+
     return (
         <div className="card" key={id}>
             <Link to={`/tovar/${encodeURIComponent(title)}`}>
@@ -23,10 +25,10 @@ function Card({ id, imageUrl, category, title, price }) {
             </Link>
             <p>{category}</p>
             <a>{title}</a>
-            <b>{price} ₽.</b>
+            <b>{formattedPrice} ₽.</b> {/* Отображаем цену с разделением тысяч */}
             <button className="add">
                 {!isAdded ? (
-                    <button className="" onClick={onAdd}>
+                    <button onClick={onAdd}>
                         <img className="img2" src={toCart} alt="Add to Cart" />
                     </button>
                 ) : (

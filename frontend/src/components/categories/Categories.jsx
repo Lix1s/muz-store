@@ -54,8 +54,8 @@ const Categories = () => {
                         Классические гитары
                     </button>
                     <button
-                        onClick={() => handleCategoryClick('Усилитель для гитары')}
-                        className={activeCategory === 'Усилитель для гитары' ? 'active' : ''}
+                        onClick={() => handleCategoryClick('Усилители для гитар')}
+                        className={activeCategory === 'Усилители для гитар' ? 'active' : ''}
                     >
                         Усилители для гитар
                     </button>
